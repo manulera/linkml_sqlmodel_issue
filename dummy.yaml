@@ -1,0 +1,42 @@
+id: https://w3id.org/linkml/examples/dummy
+name: dummy
+prefixes:
+  linkml: https://w3id.org/linkml/
+  dummy: https://w3id.org/linkml/examples/dummy
+imports:
+  - linkml:types
+default_prefix: dummy
+
+
+slots:
+  id:
+    identifier: true
+    slot_uri: schema:identifier
+    range: integer
+    description: A unique identifier for a thing
+    required: true
+  name:
+    slot_uri: schema:name
+    description: A human-readable name for a thing
+    range: string
+    required: true
+
+classes:
+  Person:
+    slots:
+      - id
+      - name
+    attributes:
+      - age:
+          range: integer
+          description: The age of the person
+      - team_id:
+          range: Team
+          description: The team to which the person belongs
+
+    description: A person
+  Team:
+    slots:
+      - id
+      - name
+    description: A team
