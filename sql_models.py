@@ -1,6 +1,5 @@
-from sqlmodel import SQLModel, Relationship, Field, create_engine
+from sqlmodel import SQLModel, Relationship, Field
 from typing import Optional
-import os
 
 
 class TeamSQL(SQLModel, table=True):
@@ -18,23 +17,3 @@ class PersonSQL(SQLModel, table=True):
 
     team_id: Optional[int] = Field(None, foreign_key="teamsql.id")
     team: "TeamSQL" = Relationship(back_populates="people")
-
-
-import logging
-
-from sqlalchemy import log as sqlalchemy_log
-
-sqlalchemy_log._add_default_handler = lambda x: None
-
-logging.basicConfig(format="%(message)s")
-
-# Remove db file if it exists
-if os.path.exists("database.db"):
-    os.remove("database.db")
-
-# Create an SQLite database
-
-sqlite_file_name = "database.db"
-sqlite_url = f"sqlite:///{sqlite_file_name}"
-engine = create_engine(sqlite_url, echo=True)
-SQLModel.metadata.create_all(engine)
